@@ -1,0 +1,14 @@
+{
+    "builds": [
+        {
+            "src": "predictocrypto/wsgi.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "predictocrypto/wsgi.py"
+        }
+    ]
+}

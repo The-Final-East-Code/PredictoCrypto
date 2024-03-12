@@ -1,0 +1,13 @@
+{
+  "name": "django-vercel-deployment",
+  "version": "1.0.0",
+  "scripts": {
+    "install": "pip install -r requirements.txt",
+    "migrate": "python manage.py migrate",
+    "createadmin": "python manage.py createadmin",
+    "build": "echo 'Build step (if any)'",
+    "vercel-postbuild": "npm run migrate && npm run createadmin"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

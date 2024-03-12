@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div
+  class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+  <form class="space-y-6" method="POST">
+    {% csrf_token %}
+    <h5 class="text-xl font-medium text-gray-900 dark:text-white">Add Cryptocurrency</h5>
+    <!-- CRYPTO_ID -->
+    <div>
+      <label for="id_cryptoId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Crypto Id</label>
+      <input type="text" name="cryptoId" id="id_cryptoId"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        placeholder="e.g. New York" required>
+    </div>
+    <!-- CRYPTO_NAME -->
+    <div>
+      <label for="id_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Crypto Name</label>
+      <input type="text" name="name" id="id_name"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        placeholder="e.g. New York" required>
+    </div>
+    <!-- CRYPTO_SYMBOL -->
+    <div>
+      <label for="id_symbol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Crypto Symbol</label>
+      <input type="text" name="symbol" id="id_symbol"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        placeholder="e.g. New York" required>
+    </div>
+    <!-- DESCRIPTION -->
+    <div>
+      <label for="id_description"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+      <textarea name="description" id="id_description"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        placeholder="Description" required></textarea>
+    </div>
+    <!-- CURRENT PRICE -->
+    <div>
+      <label for="id_currentPrice" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current Price</label>
+      <input type="currentPrice" name="currentPrice" id="id_currentPrice"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        required>
+    </div>
+    <!-- MARKET CAP -->
+    <div>
+      <label for="id_marketCap" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Market Cap</label>
+      <input type="number" step="0.01" name="marketCap" id="id_marketCap"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        required>
+    </div>
+    <!-- ALL TIME HIGH -->
+    <div>
+      <label for="id_allTimeHigh" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">All Time High</label>
+      <input type="number" step="0.01" name="allTimeHigh" id="id_allTimeHigh"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        required>
+    </div>
+    <!-- ALL TIME LOW -->
+    <div>
+      <label for="id_allTimeLow" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">All Time Low</label>
+      <input type="number" step="0.01" name="allTimeLow" id="id_allTimeLow"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        required>
+    </div>
+    <!-- DATE CREATED -->
+    <div>
+      <label for="id_dateCreated" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Created</label>
+      <input type="date" name="dateCreated" id="id_dateCreated"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        required>
+    </div>
+    <!-- IMAGE -->
+    <div>
+      <label for="id_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
+      <input type="text" name="image" id="id_image"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        placeholder="e.g. New York" required>
+    </div>
+    <!-- REPORTED_BY -->
+    <div>
+      <label for="id_reportedBy" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reported By</label>
+      <select name="reportedBy" id="id_reportedBy" class="block w-full mt-1">
+        {% for value, choice in form.fields.reportedBy.choices %}
+        <option value="{{ value }}">{{ choice }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <!-- SUBMIT -->
+    <button type="submit"
+      class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      Create
+    </button>
+
+  </form>
+</div>
+
+{% endblock content %}

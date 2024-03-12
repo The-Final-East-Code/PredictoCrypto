@@ -12,6 +12,9 @@ ENV/
 venv
 venv/
 .venv/
+.history
+.notes
+.data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
