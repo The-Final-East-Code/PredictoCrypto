@@ -37,16 +37,16 @@ class Command(BaseCommand):
             description = description if description else "None"
 
             coin, created = Coin.objects.update_or_create(
-                cryptoId=item['id'],
+                crypto_id=item['id'],
                 defaults={
                     'name': item['name'],
                     'symbol': symbol_upper,
                     'description': description,
-                    'dateCreated': date_added or item.get('date_added'),
-                    'currentPrice': item['current_price'],
-                    'marketCap': item['market_cap'],
-                    'allTimeHigh': item['ath'],
-                    'allTimeLow': item['atl'],
+                    'date_created': date_added or item.get('date_added'),
+                    'current_price': item['current_price'],
+                    'market_cap': item['market_cap'],
+                    'ath': item['ath'],
+                    'atl': item['atl'],
                     'image': item['image']
                 }
             )

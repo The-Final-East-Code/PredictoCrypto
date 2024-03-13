@@ -5,6 +5,7 @@ from .views_front import (
     CoinDetailView,
     CoinListView,
     CoinUpdateView,
+    FileUploadView,
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path("create/", CoinCreateView.as_view(), name="coin_create"),
     path("<int:pk>/update/", CoinUpdateView.as_view(), name="coin_update"),
     path("<int:pk>/delete/", CoinDeleteView.as_view(), name="coin_delete"),
+    path("upload/", FileUploadView.as_view(), name="coin_upload"),
 ]

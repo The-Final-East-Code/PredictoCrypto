@@ -7,8 +7,8 @@ class Command(BaseCommand):
     help = 'Creates an admin user if it does not exist'
 
     def handle(self, *args, **options):
-        if not User.objects.filter(username='bigBlackAdmin').exists():
-            User.objects.create_superuser('bigBlackAdmin', 'bigBlackAdmin@black.com', 'deezNutAreBigAndBlackToo99')
+        if not User.objects.filter(username='bigAdmin').exists():
+            User.objects.create_superuser('bigAdmin', 'bigBlackAdmin@black.com', 'deezNutAreBigAndBlackToo99')
             self.stdout.write(self.style.SUCCESS('Successfully created a new admin user'))
         else:
             self.stdout.write('Admin user already exists.')

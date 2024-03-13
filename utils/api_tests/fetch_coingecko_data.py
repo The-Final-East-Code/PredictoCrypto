@@ -12,14 +12,14 @@ class Command(BaseCommand):
 
         for item in data:
             coin, created = Coin.objects.update_or_create(
-                cryptoId=item['id'],  # Assuming 'cryptoId' is used to uniquely identify a coin
+                crypto_id=item['id'],  # Assuming 'crypto_id' is used to uniquely identify a coin
                 defaults={
                     'name': item['name'],
                     'symbol': item['symbol'].upper(),  # Convert symbol to uppercase
-                    'currentPrice': item['current_price'],
-                    'marketCap': item['market_cap'],
-                    'allTimeHigh': item['high_24h'],
-                    'allTimeLow': item['low_24h'],
+                    'current_price': item['current_price'],
+                    'market_cap': item['market_cap'],
+                    'ath': item['high_24h'],
+                    'atl': item['low_24h'],
                     'image': item['image'],
                     # Add other fields here as necessary
                 }

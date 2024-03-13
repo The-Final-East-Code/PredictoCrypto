@@ -15,10 +15,10 @@
       <h5 class="text-xl font-medium text-gray-900 dark:text-white">Update a Coin</h5>
       <!-- CRYPTO_ID -->
       <div>
-        <label for="id_cryptoId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Crypto Id</label>
-        <input type="text" name="cryptoId" id="id_cryptoId"
+        <label for="id_crypto_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Crypto Id</label>
+        <input type="text" name="crypto_id" id="id_crypto_id"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          placeholder="e.g. New York" required value="{{ coin.cryptoId }}">
+          placeholder="e.g. New York" required value="{{ coin.crypto_id }}">
       </div>
       <!-- CRYPTO_NAME -->
       <div>
@@ -43,39 +43,39 @@
       </div>
       <!-- CURRENT PRICE -->
       <div>
-        <label for="id_currentPrice" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current
+        <label for="id_current_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current
           Price</label>
-        <input type="currentPrice" name="currentPrice" id="id_currentPrice"
+        <input type="current_price" name="current_price" id="id_current_price"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          required value="{{ coin.currentPrice }}">
+          required value="{{ coin.current_price }}">
       </div>
       <!-- MARKET CAP -->
       <div>
-        <label for="id_marketCap" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Market Cap</label>
-        <input type="number" step="0.01" name="marketCap" id="id_marketCap"
+        <label for="id_market_cap" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Market Cap</label>
+        <input type="number" step="0.01" name="market_cap" id="id_market_cap"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          required value="{{ coin.marketCap }}">
+          required value="{{ coin.market_cap }}">
       </div>
       <!-- ALL TIME HIGH -->
       <div>
-        <label for="id_allTimeHigh" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">All Time High</label>
-        <input type="number" step="0.01" name="allTimeHigh" id="id_allTimeHigh"
+        <label for="id_ath" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">All Time High</label>
+        <input type="number" step="0.01" name="ath" id="id_ath"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          required value="{{ coin.allTimeHigh }}">
+          required value="{{ coin.ath }}">
       </div>
       <!-- ALL TIME LOW -->
       <div>
-        <label for="id_allTimeLow" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">All Time Low</label>
-        <input type="number" step="0.01" name="allTimeLow" id="id_allTimeLow"
+        <label for="id_atl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">All Time Low</label>
+        <input type="number" step="0.01" name="atl" id="id_atl"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          required value="{{ coin.allTimeLow }}">
+          required value="{{ coin.atl }}">
       </div>
       <!-- DATE CREATED -->
       <div>
-        <label for="id_dateCreated" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Created</label>
-        <input type="date" name="dateCreated" id="id_dateCreated"
+        <label for="id_date_created" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Created</label>
+        <input type="date" name="date_created" id="id_date_created"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          required value="{{ coin.dateCreated }}">
+          required value="{{ coin.date_created }}">
       </div>
       <!-- IMAGE -->
       <div>

@@ -7,10 +7,10 @@ def load_data_into_database(json_file_path, coin_crypto_id):
     with open(json_file_path, 'r') as file:
         data = json.load(file)
 
-    # Retrieve the Coin instance by cryptoId
-    coin = Coin.objects.get(cryptoId=coin_crypto_id)
+    # Retrieve the Coin instance by crypto_id
+    coin = Coin.objects.get(crypto_id=coin_crypto_id)
     
-    # Prepare the priceHistory data
+    # Prepare the price_history data
     price_history_data = []
     
     for entry in data:
@@ -25,8 +25,8 @@ def load_data_into_database(json_file_path, coin_crypto_id):
         
         price_history_data.append(price_history_entry)
 
-    # Update the priceHistory field of the Coin instance
-    coin.priceHistory = price_history_data  # Assuming the Coin model has a priceHistory JSONB field
+    # Update the price_history field of the Coin instance
+    coin.price_history = price_history_data  # Assuming the Coin model has a price_history JSONB field
     coin.save()
 
 # Usage example:
