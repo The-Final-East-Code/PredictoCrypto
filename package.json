@@ -8,6 +8,10 @@
     "build": "echo 'Build step (if any)'",
     "vercel-postbuild": "npm run migrate && npm run createadmin"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "flowbite": "^2.3.0"
+  }
 }
