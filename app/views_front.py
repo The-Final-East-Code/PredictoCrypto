@@ -1,9 +1,12 @@
+import os
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView
 from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.utils.timezone import now
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from .analyze_crypto import plot_graph
-from django.urls import reverse_lazy
 from .forms import UploadFileForm
 from .models import Coin
 
@@ -62,6 +65,18 @@ class FileUploadView(LoginRequiredMixin, FormView):
 
         # If plot_graph returns a tuple, assume the first element is the figure we want
         fig = result[0] if isinstance(result, tuple) else result
+
+        # Ensure the uploads directory exists
+        uploads_dir = os.path.join(settings.BASE_DIR, 'uploads')
+        os.makedirs(uploads_dir, exist_ok=True)
+
+        # Generate a unique filename for the plot
+        timestamp = now().strftime('%Y%m%d%H%M%S')  # Current time as a string
+        filename = f"plot_{timestamp}.png"
+        filepath = os.path.join(uploads_dir, filename)
+
+        # Save the figure to the specified file path
+        fig.savefig(filepath)
 
         # Create an HTTP response with a plot image
         response = HttpResponse(content_type='image/png')
