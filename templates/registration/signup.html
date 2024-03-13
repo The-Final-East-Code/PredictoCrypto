@@ -14,7 +14,7 @@
     class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
     <form class="space-y-6" method="POST">
       {% csrf_token %}
-      <h5 class="text-xl font-medium text-gray-900 dark:text-white">Sign up for our platform</h5>
+      <h5 class="text-xl font-medium text-gray-900 dark:text-white">Join Now. Invest Now.</h5>
       <div>
         <label for="id_username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your User
           Name</label>
@@ -24,14 +24,13 @@
 
       </div>
       <div>
-        <label for="id_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
+        <label for="id_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
         <input type="email" name="email" id="id_email"
                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                placeholder="email" required>
       </div>
       <div>
-        <label for="id_password1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-          password</label>
+        <label for="id_password1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
         <input type="password" name="password1" id="id_password1" placeholder="••••••••"
                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                required>
