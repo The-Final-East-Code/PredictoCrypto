@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework_simplejwt import views as jwt_views
 from .views import MyTokenObtainPairView
+from app.views_front import CoinTop20View
 from django.views.generic.base import TemplateView
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -38,4 +40,5 @@ urlpatterns = [
     path("about/", TemplateView.as_view(template_name="about.html"), name="about"),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("coin_top_20/", CoinTop20View.as_view(), name="coin_top_20"),
 ]

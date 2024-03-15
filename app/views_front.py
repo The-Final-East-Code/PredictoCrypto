@@ -3,14 +3,13 @@ import requests
 import csv
 import json
 from django.conf import settings
-from django.http import JsonResponse, HttpResponseNotAllowed
+from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic.base import TemplateView
-from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView, TemplateView
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -25,12 +24,10 @@ class CoinListView(LoginRequiredMixin, ListView):
     model = Coin
     context_object_name = "coin"
 
-
 class CoinDetailView(LoginRequiredMixin, DetailView):
     template_name = "coin/coin_detail.html"
     model = Coin
     context_object_name = "coin"
-
 
 class CoinUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "coin/coin_update.html"
@@ -39,18 +36,15 @@ class CoinUpdateView(LoginRequiredMixin, UpdateView):
     fields = "__all__" # "__all__" for all of them
     # or fields = [ "crypto_id", "name", "symbol",... ] 
 
-
 class CoinCreateView(LoginRequiredMixin, CreateView):
     template_name = "coin/coin_create.html"
     model = Coin
     fields = "__all__"
 
-
 class CoinDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "coin/coin_delete.html"
     model = Coin
     success_url = reverse_lazy("coin_list")
-
 
 class FileUploadView(LoginRequiredMixin, FormView):
     template_name = "coin/coin_upload.html"
@@ -90,22 +84,13 @@ class FileUploadView(LoginRequiredMixin, FormView):
             # File type not supported
             return HttpResponse("Unsupported file type.", status=400)
 
-
     def form_invalid(self, form):
         # Optional: Handle case where form is not valid
         return super().form_invalid(form)
 
-
 # View to handle chat requests
 class ChatView(LoginRequiredMixin, TemplateView):
     template_name = "coin/ai_chat.html"
-    # success_url = reverse_lazy("ai_chat")
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # Add any additional context here if needed
-    #     return context
-    
 
 # @method_decorator(csrf_exempt, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -115,3 +100,13 @@ class ChatPostView(LoginRequiredMixin, View):
         user_message = data.get('message', '')
         response_message = chat_with_openai(user_message)
         return JsonResponse({'response': response_message})
+
+class CoinTop20View(LoginRequiredMixin,ListView):
+    template_name = "coin_top_20.html"
+    model = Coin
+    context_object_name = "coins"
+
+    def get_queryset(self):
+        # Return the top 20 coins here based on your criteria
+        return Coin.objects.order_by('-market_cap')[:20]
+

@@ -8,7 +8,10 @@ from .views_front import (
     FileUploadView,
     ChatView,
     ChatPostView,
+    CoinTop20View,
+    CoinTop20View,
 )
+
 
 urlpatterns = [
     path("", CoinListView.as_view(), name="coin_list"),
@@ -19,4 +22,5 @@ urlpatterns = [
     path("upload/", FileUploadView.as_view(), name="coin_upload"),
     path("chat/", ChatView.as_view(), name="ai_chat"),
     path("chat/post", ChatPostView.as_view(), name="ai_chat_post"),
+    path("coin_top_20/", CoinTop20View.as_view(), name="coin_top_20"),
 ]
