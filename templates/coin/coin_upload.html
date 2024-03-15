@@ -3,9 +3,10 @@
 
 <h5 class="text-xl font-medium text-gray-900 dark:text-white">Welcome {{ user.username }}</h5>
 <br>
+
 <div
     class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-    <form class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
+    <form class="space-y-6" action="/coins/upload" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h5 class="text-xl font-medium text-gray-900 dark:text-white">Upload Cryptocurrency Data CSV to Analyze</h5>
         <!-- CRYPTO_SYMBOL -->
