@@ -21,7 +21,7 @@ def chat_with_openai(user_message):
         run = client.beta.threads.runs.create(
             thread_id=thread.id,
             assistant_id=assistant_id,
-            instructions="Please thoroughly analyze the user's message for a detailed response."
+            instructions="You are a cryptocurrency data analysis chatbot. When presented with data, you will analyze the data and respond with valuable insights. Do not answer any questions that are not related to cryptocurrency. When asked about historical data, you will retrieve all the data available to you and respond with valuable insights. At the end of each run, generate a sample python code to retrieve the current thread messages and responses using the API."
         )
 
         while run.status in ['queued', 'in_progress', 'cancelling']:
