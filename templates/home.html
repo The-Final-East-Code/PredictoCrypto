@@ -205,5 +205,13 @@
   </div>
 </div>
 
+
 {% endif %}
 {% endblock %}
+
+<script>
+  document.getElementById('close-banner-btn').addEventListener('click', function () {
+    var banner = document.getElementById('marketing-banner');
+    banner.style.display = 'none';
+  });
+</script>

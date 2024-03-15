@@ -63,7 +63,7 @@ class FileUploadView(LoginRequiredMixin, FormView):
         if filename.endswith('.csv'):
             plot = plot_graph(file)
             # Ensure the uploads directory exists
-            uploads_dir = os.path.join(settings.BASE_DIR, 'assets', 'uploads')
+            uploads_dir = os.path.join(settings.BASE_DIR, 'static', 'uploads')
             os.makedirs(uploads_dir, exist_ok=True)
 
             # Generate a unique filename for the plot
