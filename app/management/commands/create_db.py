@@ -123,4 +123,3 @@ class Command(BaseCommand):
         with connection.cursor() as cursor:
             cursor.execute(create_tables_sql)
             self.stdout.write(self.style.SUCCESS("Tables created successfully."))
-
