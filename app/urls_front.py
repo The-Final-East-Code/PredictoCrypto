@@ -6,6 +6,8 @@ from .views_front import (
     CoinListView,
     CoinUpdateView,
     FileUploadView,
+    ChatView,
+    ChatPostView,
 )
 
 urlpatterns = [
@@ -15,4 +17,6 @@ urlpatterns = [
     path("<int:pk>/update/", CoinUpdateView.as_view(), name="coin_update"),
     path("<int:pk>/delete/", CoinDeleteView.as_view(), name="coin_delete"),
     path("upload/", FileUploadView.as_view(), name="coin_upload"),
+    path("chat/", ChatView.as_view(), name="ai_chat"),
+    path("chat/post", ChatPostView.as_view(), name="ai_chat_post"),
 ]
