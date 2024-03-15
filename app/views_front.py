@@ -8,14 +8,14 @@ from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponse, Http
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView, TemplateView
 from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView, TemplateView
-from django.urls import reverse_lazy
 from django.utils.timezone import now
+from django.urls import reverse, reverse_lazy
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from .forms import UploadFileForm
-from .models import Coin, CsvUploads, PlotImages
+from .models import Coin
 from .tools.ai_run import chat_with_openai
 from .tools.analyze_crypto import plot_graph,summarize_data,call_cgpt_api
 from .tools.random_youtube_vid import get_youtube_vid_ids
@@ -51,68 +51,43 @@ class CoinDeleteView(LoginRequiredMixin, DeleteView):
 class FileUploadView(LoginRequiredMixin, FormView):
     template_name = "coin/coin_upload.html"
     form_class = UploadFileForm
-    success_url = reverse_lazy('coin_list')  # Adjust as needed
+    success_url = reverse_lazy('coin_list')
 
     def form_valid(self, form):
-        user = self.request.user
+        # Called when valid form data has been POSTed
+        # Returns an HttpResponse
         file = form.cleaned_data['file']
         filename = file.name
-        description = form.cleaned_data.get('description', '')
 
-        # Ensure the directory for CSVs exists under MEDIA_ROOT/csv
-        csv_dir = os.path.join(settings.MEDIA_ROOT, 'csv')
-        os.makedirs(csv_dir, exist_ok=True)
-        
-        # Include the user's ID in the file name to ensure uniqueness
-        user_id_str = f"user_{user.id}_"
-        csv_filename = user_id_str + now().strftime('%Y%m%d%H%M%S_') + filename
-        csv_file_path = os.path.join(csv_dir, csv_filename)
-
-        # Save the CSV file
-        with open(csv_file_path, 'wb+') as csv_file:
-            for chunk in file.chunks():
-                csv_file.write(chunk)
-
-        # Save CSV upload information to the database
-        CsvUploads.objects.create(
-            user=user,
-            path=os.path.join('csv', csv_filename),  # Store relative path
-            description=description,
-            coin=None  # Placeholder, adjust as needed
-        )
-
-        # Process the CSV if it's the correct format
+        # Determine file type and process accordingly
         if filename.endswith('.csv'):
-            plot = plot_graph(csv_file_path)  # Adjust plot_graph to use file path
+            plot = plot_graph(file)
+            # Ensure the uploads directory exists
+            uploads_dir = os.path.join(settings.BASE_DIR, 'assets', 'uploads')
+            os.makedirs(uploads_dir, exist_ok=True)
 
-            # Ensure the directory for plots exists under MEDIA_ROOT/plots
-            plot_dir = os.path.join(settings.MEDIA_ROOT, 'plots')
-            os.makedirs(plot_dir, exist_ok=True)
+            # Generate a unique filename for the plot
+            timestamp = now().strftime('%Y%m%d%H%M%S')
+            filename = f"plot_{timestamp}.png"
+            filepath = os.path.join(uploads_dir, filename)
 
-            plot_filename = user_id_str + now().strftime('%Y%m%d%H%M%S_plot.png')
-            plot_file_path = os.path.join(plot_dir, plot_filename)
-
-            # Assuming `plot` is a Matplotlib figure, or you have logic to handle the plot object
-            fig = plot[1] if isinstance(plot, tuple) else plot
-            fig.savefig(plot_file_path)
-
-            # Save plot image information to the database
-            PlotImages.objects.create(
-                user=user,
-                path=os.path.join('plots', plot_filename),  # Store relative path
-                description=f"Plot generated from {filename}",
-                coin=None  # Placeholder, adjust as needed
-            )
-
-            # Optionally, store plot information in session or redirect to a view that displays the plot
-            # self.request.session['plot_image_path'] = plot_file_path
-            # Adjust redirection or response as needed
-            return HttpResponseRedirect(self.get_success_url())
+            # If tuple is returned, get the first element as figure
+            fig = plot[0] if isinstance(plot, tuple) else plot
+            # Save the figure to the specified file path
+            fig.savefig(filepath)
+            # Create an HTTP response with a plot image
+            response = HttpResponse(content_type='image/png')
+            canvas = FigureCanvas(fig)
+            canvas.print_png(response)
+            return response
+            # Display the response directly
+            # return HttpResponse(response)
         else:
+            # File type not supported
             return HttpResponse("Unsupported file type.", status=400)
 
     def form_invalid(self, form):
-        # Handle case where form is not valid
+        # Optional: Handle case where form is not valid
         return super().form_invalid(form)
 
 # View to handle chat requests

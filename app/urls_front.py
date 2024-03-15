@@ -9,7 +9,6 @@ from .views_front import (
     ChatView,
     ChatPostView,
     CoinTop20View,
-    CoinTop20View,
     LearnView,
 )
 

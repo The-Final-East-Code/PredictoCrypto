@@ -27,12 +27,9 @@ class CoinDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = CoinSerializer
 
 
+# views.py or views_front.py
 class PlotImageView(View):
-    def get(self, request):
-        # Retrieve the plot image path from the session
-        user_plot = PlotImages.objects.filter(user=request.user).order_by('-date_created').first()
-        # Context for rendering the template
-        context = {
-            'plot_image_path': user_plot.path if user_plot else None,
-        }
+    def get(self, request, pk):
+        user_plot = PlotImages.objects.get(pk=pk, user=request.user)  # Ensure the plot belongs to the user
+        context = {'plot_image_path': user_plot.path.url if user_plot else None}
         return render(request, 'coin/plot_display.html', context)
