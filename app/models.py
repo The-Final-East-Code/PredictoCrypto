@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 
 class Coin(models.Model):
@@ -15,9 +16,6 @@ class Coin(models.Model):
     date_created = models.DateField(null=True)
     image = models.CharField(max_length=256)
     price_history = models.JSONField(null=True)
-    # reported_by = models.ForeignKey(
-    #     get_user_model(), on_delete=models.CASCADE, null=True, blank=True
-    # )
 
     def __str__(self):
         return self.crypto_id
@@ -65,3 +63,36 @@ class Bitcoin(models.Model):
 
     def __str__(self):
         return str(self.sno)
+    
+
+class PlotImages(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True, blank=True)
+    path = models.CharField(max_length=256)
+    description = models.TextField(blank=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    coin = models.ForeignKey('Coin', on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"Plot Image {self.id} for {self.coin}"
+
+
+class CsvUploads(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True, blank=True)
+    path = models.CharField(max_length=256)
+    description = models.TextField(blank=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    coin = models.ForeignKey('Coin', on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"CSV Upload {self.id} for {self.coin}"
+
+
+class GptResponses(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True, blank=True)
+    path = models.CharField(max_length=256)
+    description = models.TextField(blank=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    coin = models.ForeignKey('Coin', on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"GPT Response {self.id} for {self.coin}"

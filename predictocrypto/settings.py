@@ -37,6 +37,9 @@ env = environ.Env(
 
 environ.Env.read_env()
 
+OPENAI_API_KEY = env('CGPT_API')
+AI_ASSISTANT_ID= env('AI_ASSISTANT_ID')
+
 ENVIRONMENT = env.str("ENVIRONMENT")
 
 # Quick-start development settings - unsuitable for production

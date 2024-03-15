@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div
+        class="w-full max-w-xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <form id="chat-form" class="space-y-6" action="#" method="POST">
+            {% csrf_token %}
+            <h5 class="text-xl font-medium text-gray-900 dark:text-white">Ask a Crypto Question {{ user.username }}</h5>
+            <!-- USER MESSAGE -->
+            <div>
+                <label for="user-message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type your question here...</label>
+                <input type="text" id="user-message" name="message"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    placeholder="Give me insights on the crypto data..." required>
+            </div>
+            <!-- SUBMIT BUTTON FOR CHAT -->
+            <button type="button" id="send-message"
+                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Ask
+            </button>
+        </form>
+        <!-- RESPONSE AREA -->
+        <div class="mt-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AI Assistant's Response</label>
+            <div id="chat-response"
+                class="p-4 mt-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 text-gray-900 dark:text-white">
+                Your response will appear here...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("send-message").onclick = function (e) {
+            e.preventDefault();
+            const sendMessageButton = document.getElementById("send-message");
+            const chatResponse = document.getElementById("chat-response");
+            
+            sendMessageButton.textContent = 'Asking...';
+            sendMessageButton.disabled = true;
+
+            const userMessage = document.getElementById("user-message").value;
+            fetch('/coins/chat/post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+                body: JSON.stringify({ message: userMessage })
+            })
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                document.getElementById("chat-response").innerText = data.response;
+                document.getElementById("user-message").value = '';
+                sendMessageButton.textContent = 'Ask';
+                sendMessageButton.disabled = false;
+            })
+            .catch((error) => {
+                chatResponse.innerText = 'An error occurred. Please try again.';
+                sendMessageButton.textContent = 'Ask';
+                sendMessageButton.disabled = false;
+                console.error('Error:', error);
+            });
+        };
+    </script>
+
+{% endblock content %}
