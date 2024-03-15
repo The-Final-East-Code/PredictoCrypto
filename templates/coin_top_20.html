@@ -13,10 +13,36 @@
       <p class="font-semibold text-gray-900 dark:text-white">Symbol: {{ coin.symbol }}</p>
       <p class="font-semibold text-gray-900 dark:text-white">Current Price: ${{ coin.current_price }}</p>
       <p class="font-semibold text-gray-900 dark:text-white">Market Cap: ${{ coin.market_cap }}</p>
-      <!-- Add favorite button here -->
-      <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">Favorite</button>
+      
+      <!-- Favorite button -->
+      {% if coin.is_favorite %}
+        <button class="favorite-button mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg focus:outline-none focus:ring focus:ring-green-300">❤️ Favorited</button>
+      {% else %}
+        <button class="favorite-button mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">Favorite</button>
+      {% endif %}
     </div>
     {% endfor %}
   </div>
 </div>
+
+<script>
+  // Add event listener to each favorite button
+  document.querySelectorAll('.favorite-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+      // Toggle class to indicate whether it's favorited or not
+      this.classList.toggle('favorited');
+      // Update button's text and style
+      if (this.classList.contains('favorited')) {
+        this.textContent = '❤️ Favorited';
+        this.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+        this.classList.add('bg-green-500', 'hover:bg-green-600');
+      } else {
+        this.textContent = 'Favorite';
+        this.classList.remove('bg-green-500', 'hover:bg-green-600');
+        this.classList.add('bg-blue-500', 'hover:bg-blue-600');
+      }
+    });
+  });
+</script>
+
 {% endblock %}
