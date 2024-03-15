@@ -4,14 +4,15 @@
 
 {% block content %}
 <div class="container mx-auto mt-8">
-  <h2 class="text-2xl font-semibold mb-4">Top 20 Cryptocurrencies</h2>
+  <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Top 20 Cryptocurrencies</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for coin in coins %}
     <div class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-      <h3 class="text-xl font-semibold mb-2">{{ coin.name }}</h3>
-      <p class="text-gray-800">Symbol: {{ coin.symbol }}</p>
-      <p class="text-gray-800">Current Price: ${{ coin.current_price }}</p>
-      <p class="text-gray-800">Market Cap: ${{ coin.market_cap }}</p>
+      <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{{ coin.name }}</h3>
+      <img src="{{ coin.image }}" style="width: 30%;" alt="Coin Image">
+      <p class="font-semibold text-gray-900 dark:text-white">Symbol: {{ coin.symbol }}</p>
+      <p class="font-semibold text-gray-900 dark:text-white">Current Price: ${{ coin.current_price }}</p>
+      <p class="font-semibold text-gray-900 dark:text-white">Market Cap: ${{ coin.market_cap }}</p>
       <!-- Add favorite button here -->
       <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">Favorite</button>
     </div>
