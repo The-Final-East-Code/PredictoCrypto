@@ -1,4 +1,5 @@
 import os
+import random
 import requests
 import csv
 import json
@@ -17,6 +18,7 @@ from .forms import UploadFileForm
 from .models import Coin
 from .tools.ai_run import chat_with_openai
 from .tools.analyze_crypto import plot_graph,summarize_data,call_cgpt_api
+from .tools.random_youtube_vid import get_youtube_vid_ids
 
 
 class CoinListView(LoginRequiredMixin, ListView):
@@ -108,5 +110,15 @@ class CoinTop20View(LoginRequiredMixin,ListView):
 
     def get_queryset(self):
         # Return the top 20 coins here based on your criteria
-        return Coin.objects.order_by('-market_cap')[:20]
+        return Coin.objects.order_by('id')[:20]
 
+class LearnView(LoginRequiredMixin, TemplateView):
+    template_name = "coin/learn.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # List of cryptocurrency-related YouTube video IDs
+        video_ids = get_youtube_vid_ids("cryptocurrency")
+        selected_video_id = random.choice(video_ids)
+        context['video_id'] = selected_video_id
+        return context
